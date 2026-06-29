@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Move Brasil</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1724, #1e3a5f, #2b6cb0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 460px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2b6cb0, #48bb78, #f6ad55);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .logo h2 {
+            color: #1a365d;
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .logo h2 span {
+            background: linear-gradient(135deg, #2b6cb0, #48bb78);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2b6cb0;
+        }
+
+        .info-banner p {
+            font-size: 13px;
+            color: #2a4365;
+            line-height: 1.5;
+        }
+
+        .info-banner strong {
+            color: #1a365d;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .label-info {
+            font-weight: 400;
+            color: #718096;
+            font-size: 12px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper .prefix {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f7fafc;
+            outline: none;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .input-wrapper input {
+            padding-left: 30px;
+        }
+
+        input:focus, select:focus {
+            border-color: #2b6cb0;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.15);
+        }
+
+        input:disabled, select:disabled {
+            background: #edf2f7;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        select {
+            appearance: auto;
+            cursor: pointer;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+        }
+        .row .input-group {
+            flex: 1;
+        }
+
+        .campo-fixo {
+            position: relative;
+        }
+
+        .campo-fixo::after {
+            content: '🔒';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #2b6cb0, #1a365d);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(43, 108, 176, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .resultado {
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f9ff, #e6f7ff);
+            border-radius: 12px;
+            display: none;
+            border: 2px solid #bee3f8;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .resultado .resumo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .resultado .item {
+            background: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .resultado .item .rotulo {
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .resultado .item .valor {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-top: 2px;
+        }
+
+        .resultado .item .valor.destaque {
+            color: #2b6cb0;
+            font-size: 22px;
+        }
+
+        .resultado .item .valor.total {
+            color: #1a365d;
+            font-size: 20px;
+        }
+
+        .resultado .detalhes {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px dashed #bee3f8;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .resultado .detalhes .det-item {
+            text-align: center;
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .resultado .detalhes .det-item .det-valor {
+            font-weight: 700;
+            color: #2d3748;
+            display: block;
+            font-size: 15px;
+        }
+
+        .erro {
+            color: #e53e3e;
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+            background: #fff5f5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 3px solid #e53e3e;
+        }
+
+        .tooltip {
+            background: #2d3748;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 6px;
+            cursor: help;
+        }
+
+        .entrada-minima {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .entrada-minima.valido {
+            color: #48bb78;
+            display: block;
+        }
+
+        .entrada-minima.invalido {
+            color: #e53e3e;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .card { padding: 20px; }
+            .row { flex-direction: column; gap: 0; }
+            .resultado .resumo { grid-template-columns: 1fr; }
+            .resultado .detalhes { grid-template-columns: 1fr; }
+            .logo h2 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="logo">
+        <h2>🚗 <span>Move</span> Brasil</h2>
+        <span class="badge">✅ Automático</span>
+    </div>
+
+    <div class="info-banner">
+        <p>
+            <strong>✅ Programa Automático</strong><br>
+            • Carros <strong>NOVOS</strong> até <strong>R$ 150.000</strong><br>
+            • <strong>Sem entrada</strong> (financiamento de até 100%)<br>
+            • Taxas fixas: <strong>0,99%</strong> (H) / <strong>0,91%</strong> (M) a.m.<br>
+            • Máx. <strong>72 parcelas</strong> + até <strong>6 meses</strong> de carência
+        </p>
+    </div>
+
+    <div class="input-group">
+        <label>Valor do Veículo <span class="label-info">(máx. R$ 150.000)</span></label>
+        <div class="input-wrapper">
+            <span class="prefix">R$</span>
+            <input type="text" id="valor" placeholder="Ex: 109.900" inputmode="numeric">
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label>Valor da Entrada <span class="label-info">(opcional)</span></label>
+        <div class="input-wrapper">
+            <span class="prefix">R$</span>
+            <input type="text" id="entrada" placeholder="Ex: 0" inputmode="numeric" value="0">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-group">
+            <label>Gênero <span class="tooltip">i</span></label>
+            <select id="genero">
+                <option value="homem">👨 Homem (0,99%)</option>
+                <option value="mulher">👩 Mulher (0,91%)</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Parcelas <span class="label-info">(12 a 72)</span></label>
+            <input type="number" id="parcelas" placeholder="Ex: 60" min="12" max="72">
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label>Carência <span class="label-info">(até 6 meses)</span></label>
+        <select id="carencia">
+            <option value="0">Sem carência</option>
+            <option value="1">1 mês</option>
+            <option value="2">2 meses</option>
+            <option value="3">3 meses</option>
+            <option value="4">4 meses</option>
+            <option value="5">5 meses</option>
+            <option value="6">6 meses</option>
+        </select>
+    </div>
+
+    <!-- Campos fixos/automáticos -->
+    <div class="row">
+        <div class="input-group">
+            <label>Taxa de Juros <span class="label-info">(automática)</span></label>
+            <div class="input-wrapper campo-fixo">
+                <span class="prefix">%</span>
+                <input type="text" id="taxaExibida" value="0,99" disabled>
+            </div>
+        </div>
+        <div class="input-group">
+            <label>Limite Máximo <span class="label-info">(automático)</span></label>
+            <div class="input-wrapper campo-fixo">
+                <span class="prefix">R$</span>
+                <input type="text" id="limiteExibido" value="150.000" disabled>
+            </div>
+        </div>
+    </div>
+
+    <div id="erro" class="erro">⚠️ Preencha todos os campos corretamente.</div>
+
+    <button onclick="calcular()">🔍 Simular Financiamento</button>
+
+    <div id="resultado" class="resultado">
+        <div class="resumo">
+            <div class="item">
+                <div class="rotulo">Valor da Parcela</div>
+                <div class="valor destaque" id="valorParcela">-</div>
+            </div>
+            <div class="item">
+                <div class="rotulo">Total a Pagar</div>
+                <div class="valor total" id="valorTotal">-</div>
+            </div>
+        </div>
+        <div class="detalhes">
+            <div class="det-item">
+                Financiado
+                <span class="det-valor" id="valorFinanciado">-</span>
+            </div>
+            <div class="det-item">
+                Total de Juros
+                <span class="det-valor" id="totalJuros">-</span>
+            </div>
+            <div class="det-item">
+                Taxa Aplicada
+                <span class="det-valor" id="taxaAplicada">-</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==================== MÁSCARAS DE VALORES ====================
+    function formatarMoeda(valor) {
+        let numeros = valor.replace(/\D/g, '');
+        if (numeros === '') return '';
+        let valorNumerico = parseFloat(numeros) / 100;
+        return valorNumerico.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    function aplicarMascaraMoeda(input) {
+        const start = input.selectionStart;
+        const valorFormatado = formatarMoeda(input.value);
+        if (input.value !== valorFormatado) {
+            input.value = valorFormatado;
+            const novoStart = Math.min(start, input.value.length);
+            input.setSelectionRange(novoStart, novoStart);
+        }
+    }
+
+    function limparMascara(valor) {
+        return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
+    }
+
+    // Aplica máscara aos campos de moeda
+    document.getElementById('valor').addEventListener('input', function() {
+        aplicarMascaraMoeda(this);
+        this.dispatchEvent(new Event('change'));
+    });
+
+    document.getElementById('entrada').addEventListener('input', function() {
+        aplicarMascaraMoeda(this);
+        this.dispatchEvent(new Event('change'));
+    });
+
+    // ==================== VALIDAÇÕES ====================
+    // Atualiza taxa automaticamente ao mudar gênero
+    document.getElementById('genero').addEventListener('change', function() {
+        const taxa = this.value === 'homem' ? '0,99' : '0,91';
+        document.getElementById('taxaExibida').value = taxa;
+        if (camposPreenchidos()) calcular();
+    });
+
+    // Valida valor máximo do veículo
+    document.getElementById('valor').addEventListener('change', function() {
+        const valorStr = this.value;
+        if (valorStr) {
+            const valor = limparMascara(valorStr);
+            if (!isNaN(valor) && valor > 150000) {
+                this.style.borderColor = '#e53e3e';
+                document.getElementById('erro').textContent = '⚠️ Valor máximo permitido: R$ 150.000';
+                document.getElementById('erro').style.display = 'block';
+            } else {
+                this.style.borderColor = '#48bb78';
+                document.getElementById('erro').style.display = 'none';
+            }
+        }
+        if (camposPreenchidos()) calcular();
+    });
+
+    // Valida parcelas
+    document.getElementById('parcelas').addEventListener('input', function() {
+        const n = parseInt(this.value);
+        if (!isNaN(n) && (n < 12 || n > 72)) {
+            this.style.borderColor = '#e53e3e';
+        } else {
+            this.style.borderColor = '#48bb78';
+        }
+        if (camposPreenchidos()) calcular();
+    });
+
+    // Carência
+    document.getElementById('carencia').addEventListener('change', function() {
+        if (camposPreenchidos()) calcular();
+    });
+
+    function camposPreenchidos() {
+        const valor = document.getElementById('valor').value;
+        const entrada = document.getElementById('entrada').value;
+        const parcelas = document.getElementById('parcelas').value;
+        return valor && entrada && parcelas && 
+               limparMascara(valor) > 0 && 
+               limparMascara(entrada) >= 0 && 
+               parseInt(parcelas) >= 12;
+    }
+
+    // Atualiza limite exibido
+    document.getElementById('limiteExibido').value = '150.000';
+
+    // ==================== CÁLCULO ====================
+    function calcular() {
+        document.getElementById('erro').style.display = 'none';
+        document.getElementById('resultado').style.display = 'none';
+
+        const valorStr = document.getElementById('valor').value;
+        const entradaStr = document.getElementById('entrada').value;
+        const n = parseInt(document.getElementById('parcelas').value);
+        const genero = document.getElementById('genero').value;
+        const carencia = parseInt(document.getElementById('carencia').value);
+
+        const v = limparMascara(valorStr);
+        const e = limparMascara(entradaStr) || 0;
+
+        // Validações
+        if (isNaN(v) || v <= 0 || v > 150000) {
+            document.getElementById('erro').textContent = '⚠️ Valor do veículo inválido (máx. R$ 150.000)';
+            document.getElementById('erro').style.display = 'block';
+            return;
+        }
+
+        if (isNaN(e) || e < 0 || e > v) {
+            document.getElementById('erro').textContent = '⚠️ Entrada não pode ser maior que o valor do veículo.';
+            document.getElementById('erro').style.display = 'block';
+            return;
+        }
+
+        if (isNaN(n) || n < 12 || n > 72) {
+            document.getElementById('erro').textContent = '⚠️ Parcelas entre 12 e 72.';
+            document.getElementById('erro').style.display = 'block';
+            return;
+        }
+
+        if (isNaN(carencia) || carencia < 0 || carencia > 6) {
+            document.getElementById('erro').textContent = '⚠️ Carência entre 0 e 6 meses.';
+            document.getElementById('erro').style.display = 'block';
+            return;
+        }
+
+        let taxaMensal = genero === 'homem' ? 0.0099 : 0.0091;
+        const taxaPercentual = (taxaMensal * 100).toFixed(2);
+        document.getElementById('taxaAplicada').innerText = taxaPercentual + '% a.m.';
+
+        const p = v - e;
+
+        let parcela;
+        if (taxaMensal === 0) {
+            parcela = p / n;
+        } else {
+            const pCorrigido = p * Math.pow(1 + taxaMensal, carencia);
+            parcela = (pCorrigido * Math.pow(1 + taxaMensal, n) * taxaMensal) / (Math.pow(1 + taxaMensal, n) - 1);
+        }
+
+        const totalPago = parcela * n;
+        const totalJuros = totalPago - p;
+
+        const formatar = (valor) => 'R$ ' + valor.toFixed(2).replace('.', ',');
+
+        document.getElementById('valorParcela').innerText = formatar(parcela);
+        document.getElementById('valorTotal').innerText = formatar(totalPago);
+        document.getElementById('valorFinanciado').innerText = formatar(p);
+        document.getElementById('totalJuros').innerText = formatar(totalJuros);
+
+        document.getElementById('resultado').style.display = 'block';
+        document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Enter para calcular
+    document.querySelectorAll('input, select').forEach(el => {
+        el.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calcular();
+        });
+    });
+</script>
+
+</body>
+</html>
