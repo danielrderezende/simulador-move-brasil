@@ -46,7 +46,6 @@
             overflow: hidden;
         }
 
-        /* Detalhe colorido no topo do card */
         .card::before {
             content: '';
             position: absolute;
@@ -194,6 +193,29 @@
             opacity: 0.6;
         }
 
+        .carro-destaque {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .info-categoria {
+            font-size: 12.5px;
+            color: #1e40af;
+            background: #e0e7ff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: none;
+            line-height: 1.5;
+            border-left: 3px solid var(--primary);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         button {
             width: 100%;
             padding: 16px;
@@ -331,14 +353,23 @@
         <span class="badge">Automático</span>
     </div>
 
-    <div class="info-banner">
-        <p>
-            <strong>✅ Condições Exclusivas</strong><br>
-            • Veículos novos até <strong>R$ 150.000</strong><br>
-            • Financiamento de até <strong>100%</strong> (Sem entrada)<br>
-            • Taxas: <strong>0,99%</strong> (Homem) / <strong>0,91%</strong> (Mulher) a.m.<br>
-            • Em até <strong>72x</strong> com <strong>6 meses</strong> de carência
-        </p>
+    <!-- Seção de Categoria: App vs Táxi -->
+    <div class="input-group">
+        <label>Categoria do Comprador</label>
+        <select id="tipoUso">
+            <option value="particular">👤 Pessoa Física / Particular (Padrão)</option>
+            <option value="app">📱 Motorista de App (Desconto de Venda Direta)</option>
+            <option value="taxi">🚖 Taxista (Isenção de IPI/ICMS)</option>
+        </select>
+        <div id="infoCategoria" class="info-categoria"></div>
+    </div>
+
+    <!-- Seleção de carros dinâmica -->
+    <div class="input-group">
+        <label>Veículos em Oferta</label>
+        <select id="carroPredefinido" class="carro-destaque">
+            <!-- As opções serão geradas aqui pelo JavaScript -->
+        </select>
     </div>
 
     <div class="input-group">
@@ -437,9 +468,22 @@
 </div>
 
 <script>
+    // ==================== DADOS DOS VEÍCULOS ====================
+    // Preços base de fábrica (Pessoa Física)
+    const baseCarros = [
+        { nome: "Renault Kwid Zen", precoBase: 63990 },
+        { nome: "Fiat Mobi Like", precoBase: 65990 },
+        { nome: "Peugeot 208 Style", precoBase: 75990 },
+        { nome: "VW Polo Track", precoBase: 79990 },
+        { nome: "Hyundai HB20 Sense", precoBase: 82990 },
+        { nome: "BYD Dolphin Mini (Elétrico)", precoBase: 99800 },
+        { nome: "Chevrolet Tracker Turbo", precoBase: 115990 },
+        { nome: "Jeep Renegade 1.3 Turbo", precoBase: 135990 }
+    ];
+
     // ==================== MÁSCARAS DE VALORES ====================
     function formatarMoeda(valor) {
-        let numeros = valor.replace(/\D/g, '');
+        let numeros = valor.toString().replace(/\D/g, '');
         if (numeros === '') return '';
         let valorNumerico = parseFloat(numeros) / 100;
         return valorNumerico.toLocaleString('pt-BR', {
@@ -455,12 +499,93 @@
 
     function limparMascara(valor) {
         if (!valor) return 0;
-        return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
+        return parseFloat(valor.toString().replace(/\./g, '').replace(',', '.'));
     }
 
-    // Eventos de Input para as máscaras
+    // ==================== ATUALIZAÇÃO DINÂMICA DA LISTA ====================
+    function renderizarListaCarros() {
+        const select = document.getElementById('carroPredefinido');
+        const tipo = document.getElementById('tipoUso').value;
+        const indexSelecionado = select.value; // Salva o carro que estava selecionado
+        
+        // Limpa a lista
+        select.innerHTML = '<option value="">Selecione um carro ou digite o valor abaixo...</option>';
+
+        // Recria as opções com os valores já calculados
+        baseCarros.forEach((carro, index) => {
+            let precoFinal = carro.precoBase;
+            
+            if (tipo === 'app') {
+                precoFinal = precoFinal * 0.90; // -10% de desconto
+            } else if (tipo === 'taxi') {
+                precoFinal = precoFinal * 0.75; // -25% de desconto
+            }
+
+            const precoFormatado = precoFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            const option = document.createElement('option');
+            option.value = index; // Guarda o índice do array
+            option.textContent = `${carro.nome} - ${precoFormatado}`;
+            select.appendChild(option);
+        });
+
+        // Devolve a seleção anterior se houver
+        if (indexSelecionado !== "") {
+            select.value = indexSelecionado;
+            atualizarPrecoInput();
+        }
+    }
+
+    // Passa o valor do carro selecionado para a caixinha de input
+    function atualizarPrecoInput() {
+        const select = document.getElementById('carroPredefinido');
+        const inputValor = document.getElementById('valor');
+        const tipo = document.getElementById('tipoUso').value;
+
+        if (select.value !== "") {
+            const carro = baseCarros[select.value];
+            let precoFinal = carro.precoBase;
+
+            if (tipo === 'app') precoFinal = precoFinal * 0.90;
+            if (tipo === 'taxi') precoFinal = precoFinal * 0.75;
+
+            // Multiplica por 100 pois o formatarMoeda divide por 100
+            inputValor.value = formatarMoeda(Math.round(precoFinal * 100).toString());
+            validarCamposOnTheFly();
+        }
+    }
+
+    // ==================== EVENTOS E LÓGICA DE CATEGORIAS ====================
+    // Roda quando a página carrega pela primeira vez
+    window.onload = function() {
+        renderizarListaCarros();
+    };
+
+    document.getElementById('tipoUso').addEventListener('change', function() {
+        const infoBox = document.getElementById('infoCategoria');
+        const tipo = this.value;
+
+        if (tipo === 'app') {
+            infoBox.innerHTML = '<strong>Carro de App:</strong> Descontos de Venda Direta/Frotista direto da fábrica. (Aproximadamente <strong>10% OFF</strong>).';
+            infoBox.style.display = 'block';
+        } else if (tipo === 'taxi') {
+            infoBox.innerHTML = '<strong>Táxi:</strong> Possui direito legal de isenção de IPI e ICMS. (Aproximadamente <strong>25% OFF</strong>).';
+            infoBox.style.display = 'block';
+        } else {
+            infoBox.style.display = 'none';
+        }
+
+        // Atualiza os textos da lista e o valor no input
+        renderizarListaCarros();
+    });
+
+    document.getElementById('carroPredefinido').addEventListener('change', function() {
+        atualizarPrecoInput();
+    });
+
     document.getElementById('valor').addEventListener('input', function() {
         aplicarMascaraMoeda(this);
+        document.getElementById('carroPredefinido').value = ""; // Desmarca a lista
         validarCamposOnTheFly();
     });
 
@@ -469,7 +594,6 @@
         validarCamposOnTheFly();
     });
 
-    // ==================== EVENTOS E VALIDAÇÕES RÁPIDAS ====================
     document.getElementById('genero').addEventListener('change', function() {
         const taxa = this.value === 'homem' ? '0,99' : '0,91';
         document.getElementById('taxaExibida').value = taxa + ' a.m.';
@@ -482,6 +606,7 @@
         });
     });
 
+    // ==================== VALIDAÇÕES RÁPIDAS ====================
     function validarCamposOnTheFly() {
         const valorStr = document.getElementById('valor').value;
         if (valorStr) {
@@ -546,16 +671,14 @@
         if (taxaMensal === 0) {
             parcela = principal / n;
         } else {
-            // Capitaliza o saldo devedor durante o período de carência
             const saldoCorrigido = principal * Math.pow(1 + taxaMensal, carencia);
-            // Calcula a parcela sobre o novo saldo
             parcela = (saldoCorrigido * Math.pow(1 + taxaMensal, n) * taxaMensal) / (Math.pow(1 + taxaMensal, n) - 1);
         }
 
         const totalPago = parcela * n;
         const totalJuros = totalPago - principal;
 
-        // Função de formatação nativa (Garante os pontos de milhar: 15.000,00)
+        // Função de formatação nativa
         const formatarReal = (valorNum) => {
             return valorNum.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         };
