@@ -4,12 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador Move Brasil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #16a34a;
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --input-bg: #f8fafc;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Inter', sans-serif;
+        }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f1724, #1e3a5f, #2b6cb0);
+            background: var(--bg-gradient);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -18,92 +36,91 @@
         }
 
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 460px;
+            max-width: 480px;
             position: relative;
             overflow: hidden;
         }
 
+        /* Detalhe colorido no topo do card */
         .card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #2b6cb0, #48bb78, #f6ad55);
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--success), #f59e0b);
         }
 
         .logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         .logo h2 {
-            color: #1a365d;
-            font-size: 26px;
+            color: var(--text-main);
+            font-size: 28px;
             font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         .logo h2 span {
-            background: linear-gradient(135deg, #2b6cb0, #48bb78);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--primary);
         }
 
         .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #48bb78, #38a169);
-            color: white;
-            padding: 4px 12px;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
         .info-banner {
-            background: linear-gradient(135deg, #ebf8ff, #bee3f8);
-            padding: 12px 16px;
+            background: #eff6ff;
+            padding: 16px;
             border-radius: 12px;
-            margin-bottom: 20px;
-            border-left: 4px solid #2b6cb0;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--primary);
         }
 
         .info-banner p {
-            font-size: 13px;
-            color: #2a4365;
-            line-height: 1.5;
+            font-size: 14px;
+            color: #1e3a8a;
+            line-height: 1.6;
         }
 
         .info-banner strong {
-            color: #1a365d;
+            color: var(--primary-dark);
+            font-weight: 700;
         }
 
         .input-group {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         label {
-            display: block;
-            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
-            color: #2d3748;
+            color: var(--text-main);
             font-size: 14px;
         }
 
         .label-info {
             font-weight: 400;
-            color: #718096;
+            color: var(--text-muted);
             font-size: 12px;
         }
 
@@ -113,41 +130,27 @@
 
         .input-wrapper .prefix {
             position: absolute;
-            left: 12px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #718096;
+            color: var(--text-muted);
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px;
             z-index: 1;
         }
 
         input, select {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
             font-size: 15px;
-            transition: all 0.3s;
-            background: #f7fafc;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            background: var(--input-bg);
             outline: none;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .input-wrapper input {
-            padding-left: 30px;
-        }
-
-        input:focus, select:focus {
-            border-color: #2b6cb0;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.15);
-        }
-
-        input:disabled, select:disabled {
-            background: #edf2f7;
-            cursor: not-allowed;
-            opacity: 0.7;
+            appearance: none;
         }
 
         select {
@@ -155,45 +158,64 @@
             cursor: pointer;
         }
 
-        .row {
-            display: flex;
-            gap: 12px;
-        }
-        .row .input-group {
-            flex: 1;
+        .input-wrapper input {
+            padding-left: 40px;
         }
 
-        .campo-fixo {
-            position: relative;
+        input:focus, select:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        input:disabled, select:disabled {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            cursor: not-allowed;
+            border-color: var(--border-color);
+        }
+
+        .row {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .row .input-group {
+            flex: 1;
         }
 
         .campo-fixo::after {
             content: '🔒';
             position: absolute;
-            right: 12px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 14px;
+            opacity: 0.6;
         }
 
         button {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #2b6cb0, #1a365d);
+            padding: 16px;
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 8px;
-            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
 
         button:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(43, 108, 176, 0.4);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
         }
 
         button:active {
@@ -201,126 +223,103 @@
         }
 
         .resultado {
-            margin-top: 25px;
-            padding: 20px;
-            background: linear-gradient(135deg, #f0f9ff, #e6f7ff);
-            border-radius: 12px;
+            margin-top: 24px;
+            padding: 24px;
+            background: #f8fafc;
+            border-radius: 16px;
             display: none;
-            border: 2px solid #bee3f8;
-            animation: slideIn 0.4s ease;
+            border: 1px solid #e2e8f0;
+            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .resultado .resumo {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
         .resultado .item {
             background: white;
-            padding: 10px 14px;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 12px;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid #f1f5f9;
         }
 
         .resultado .item .rotulo {
-            font-size: 11px;
-            color: #718096;
+            font-size: 12px;
+            color: var(--text-muted);
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
         .resultado .item .valor {
-            font-size: 18px;
-            font-weight: 700;
-            color: #2d3748;
-            margin-top: 2px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
         }
 
         .resultado .item .valor.destaque {
-            color: #2b6cb0;
-            font-size: 22px;
-        }
-
-        .resultado .item .valor.total {
-            color: #1a365d;
-            font-size: 20px;
+            color: var(--primary);
+            font-size: 24px;
         }
 
         .resultado .detalhes {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 2px dashed #bee3f8;
+            padding-top: 16px;
+            border-top: 1px dashed #cbd5e1;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
+            gap: 12px;
         }
 
         .resultado .detalhes .det-item {
             text-align: center;
-            font-size: 13px;
-            color: #4a5568;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
         .resultado .detalhes .det-item .det-valor {
             font-weight: 700;
-            color: #2d3748;
+            color: var(--text-main);
             display: block;
-            font-size: 15px;
+            font-size: 14px;
+            margin-top: 4px;
         }
 
         .erro {
-            color: #e53e3e;
+            color: #dc2626;
             font-size: 13px;
-            margin-top: 4px;
+            font-weight: 500;
+            margin-bottom: 16px;
             display: none;
-            background: #fff5f5;
-            padding: 8px 12px;
+            background: #fef2f2;
+            padding: 12px;
             border-radius: 8px;
-            border-left: 3px solid #e53e3e;
+            border-left: 4px solid #dc2626;
+            animation: shake 0.4s ease-in-out;
         }
 
-        .tooltip {
-            background: #2d3748;
-            color: white;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 6px;
-            cursor: help;
-        }
-
-        .entrada-minima {
-            font-size: 12px;
-            color: #718096;
-            margin-top: 4px;
-            display: none;
-        }
-
-        .entrada-minima.valido {
-            color: #48bb78;
-            display: block;
-        }
-
-        .entrada-minima.invalido {
-            color: #e53e3e;
-            display: block;
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         @media (max-width: 480px) {
-            .card { padding: 20px; }
+            .card { padding: 24px 20px; }
             .row { flex-direction: column; gap: 0; }
             .resultado .resumo { grid-template-columns: 1fr; }
-            .resultado .detalhes { grid-template-columns: 1fr; }
-            .logo h2 { font-size: 20px; }
+            .resultado .detalhes { grid-template-columns: 1fr; gap: 16px;}
         }
     </style>
 </head>
@@ -329,16 +328,16 @@
 <div class="card">
     <div class="logo">
         <h2>🚗 <span>Move</span> Brasil</h2>
-        <span class="badge">✅ Automático</span>
+        <span class="badge">Automático</span>
     </div>
 
     <div class="info-banner">
         <p>
-            <strong>✅ Programa Automático</strong><br>
-            • Carros <strong>NOVOS</strong> até <strong>R$ 150.000</strong><br>
-            • <strong>Sem entrada</strong> (financiamento de até 100%)<br>
-            • Taxas fixas: <strong>0,99%</strong> (H) / <strong>0,91%</strong> (M) a.m.<br>
-            • Máx. <strong>72 parcelas</strong> + até <strong>6 meses</strong> de carência
+            <strong>✅ Condições Exclusivas</strong><br>
+            • Veículos novos até <strong>R$ 150.000</strong><br>
+            • Financiamento de até <strong>100%</strong> (Sem entrada)<br>
+            • Taxas: <strong>0,99%</strong> (Homem) / <strong>0,91%</strong> (Mulher) a.m.<br>
+            • Em até <strong>72x</strong> com <strong>6 meses</strong> de carência
         </p>
     </div>
 
@@ -346,7 +345,7 @@
         <label>Valor do Veículo <span class="label-info">(máx. R$ 150.000)</span></label>
         <div class="input-wrapper">
             <span class="prefix">R$</span>
-            <input type="text" id="valor" placeholder="Ex: 109.900" inputmode="numeric">
+            <input type="text" id="valor" placeholder="Ex: 109.900,00" inputmode="numeric">
         </div>
     </div>
 
@@ -354,26 +353,26 @@
         <label>Valor da Entrada <span class="label-info">(opcional)</span></label>
         <div class="input-wrapper">
             <span class="prefix">R$</span>
-            <input type="text" id="entrada" placeholder="Ex: 0" inputmode="numeric" value="0">
+            <input type="text" id="entrada" placeholder="Ex: 0,00" inputmode="numeric" value="0,00">
         </div>
     </div>
 
     <div class="row">
         <div class="input-group">
-            <label>Gênero <span class="tooltip">i</span></label>
+            <label>Gênero</label>
             <select id="genero">
                 <option value="homem">👨 Homem (0,99%)</option>
                 <option value="mulher">👩 Mulher (0,91%)</option>
             </select>
         </div>
         <div class="input-group">
-            <label>Parcelas <span class="label-info">(12 a 72)</span></label>
+            <label>Parcelas <span class="label-info">(12 a 72x)</span></label>
             <input type="number" id="parcelas" placeholder="Ex: 60" min="12" max="72">
         </div>
     </div>
 
     <div class="input-group">
-        <label>Carência <span class="label-info">(até 6 meses)</span></label>
+        <label>Carência <span class="label-info">(opcional)</span></label>
         <select id="carencia">
             <option value="0">Sem carência</option>
             <option value="1">1 mês</option>
@@ -385,27 +384,29 @@
         </select>
     </div>
 
-    <!-- Campos fixos/automáticos -->
     <div class="row">
         <div class="input-group">
-            <label>Taxa de Juros <span class="label-info">(automática)</span></label>
+            <label>Taxa de Juros</label>
             <div class="input-wrapper campo-fixo">
                 <span class="prefix">%</span>
-                <input type="text" id="taxaExibida" value="0,99" disabled>
+                <input type="text" id="taxaExibida" value="0,99 a.m." disabled>
             </div>
         </div>
         <div class="input-group">
-            <label>Limite Máximo <span class="label-info">(automático)</span></label>
+            <label>Limite Máximo</label>
             <div class="input-wrapper campo-fixo">
                 <span class="prefix">R$</span>
-                <input type="text" id="limiteExibido" value="150.000" disabled>
+                <input type="text" id="limiteExibido" value="150.000,00" disabled>
             </div>
         </div>
     </div>
 
     <div id="erro" class="erro">⚠️ Preencha todos os campos corretamente.</div>
 
-    <button onclick="calcular()">🔍 Simular Financiamento</button>
+    <button onclick="calcular()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        Simular Financiamento
+    </button>
 
     <div id="resultado" class="resultado">
         <div class="resumo">
@@ -415,12 +416,12 @@
             </div>
             <div class="item">
                 <div class="rotulo">Total a Pagar</div>
-                <div class="valor total" id="valorTotal">-</div>
+                <div class="valor" id="valorTotal">-</div>
             </div>
         </div>
         <div class="detalhes">
             <div class="det-item">
-                Financiado
+                Valor Financiado
                 <span class="det-valor" id="valorFinanciado">-</span>
             </div>
             <div class="det-item">
@@ -448,152 +449,134 @@
     }
 
     function aplicarMascaraMoeda(input) {
-        const start = input.selectionStart;
         const valorFormatado = formatarMoeda(input.value);
-        if (input.value !== valorFormatado) {
-            input.value = valorFormatado;
-            const novoStart = Math.min(start, input.value.length);
-            input.setSelectionRange(novoStart, novoStart);
-        }
+        input.value = valorFormatado;
     }
 
     function limparMascara(valor) {
+        if (!valor) return 0;
         return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
     }
 
-    // Aplica máscara aos campos de moeda
+    // Eventos de Input para as máscaras
     document.getElementById('valor').addEventListener('input', function() {
         aplicarMascaraMoeda(this);
-        this.dispatchEvent(new Event('change'));
+        validarCamposOnTheFly();
     });
 
     document.getElementById('entrada').addEventListener('input', function() {
         aplicarMascaraMoeda(this);
-        this.dispatchEvent(new Event('change'));
+        validarCamposOnTheFly();
     });
 
-    // ==================== VALIDAÇÕES ====================
-    // Atualiza taxa automaticamente ao mudar gênero
+    // ==================== EVENTOS E VALIDAÇÕES RÁPIDAS ====================
     document.getElementById('genero').addEventListener('change', function() {
         const taxa = this.value === 'homem' ? '0,99' : '0,91';
-        document.getElementById('taxaExibida').value = taxa;
+        document.getElementById('taxaExibida').value = taxa + ' a.m.';
         if (camposPreenchidos()) calcular();
     });
 
-    // Valida valor máximo do veículo
-    document.getElementById('valor').addEventListener('change', function() {
-        const valorStr = this.value;
+    ['parcelas', 'carencia'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {
+            if (camposPreenchidos()) calcular();
+        });
+    });
+
+    function validarCamposOnTheFly() {
+        const valorStr = document.getElementById('valor').value;
         if (valorStr) {
             const valor = limparMascara(valorStr);
+            const inputValor = document.getElementById('valor');
+            
             if (!isNaN(valor) && valor > 150000) {
-                this.style.borderColor = '#e53e3e';
-                document.getElementById('erro').textContent = '⚠️ Valor máximo permitido: R$ 150.000';
-                document.getElementById('erro').style.display = 'block';
+                inputValor.style.borderColor = '#dc2626';
             } else {
-                this.style.borderColor = '#48bb78';
-                document.getElementById('erro').style.display = 'none';
+                inputValor.style.borderColor = ''; // Volta ao padrão
             }
         }
         if (camposPreenchidos()) calcular();
-    });
-
-    // Valida parcelas
-    document.getElementById('parcelas').addEventListener('input', function() {
-        const n = parseInt(this.value);
-        if (!isNaN(n) && (n < 12 || n > 72)) {
-            this.style.borderColor = '#e53e3e';
-        } else {
-            this.style.borderColor = '#48bb78';
-        }
-        if (camposPreenchidos()) calcular();
-    });
-
-    // Carência
-    document.getElementById('carencia').addEventListener('change', function() {
-        if (camposPreenchidos()) calcular();
-    });
+    }
 
     function camposPreenchidos() {
         const valor = document.getElementById('valor').value;
-        const entrada = document.getElementById('entrada').value;
         const parcelas = document.getElementById('parcelas').value;
-        return valor && entrada && parcelas && 
-               limparMascara(valor) > 0 && 
-               limparMascara(entrada) >= 0 && 
-               parseInt(parcelas) >= 12;
+        return valor && parcelas && limparMascara(valor) > 0 && parseInt(parcelas) >= 12;
     }
 
-    // Atualiza limite exibido
-    document.getElementById('limiteExibido').value = '150.000';
-
-    // ==================== CÁLCULO ====================
+    // ==================== CÁLCULO PRINCIPAL ====================
     function calcular() {
-        document.getElementById('erro').style.display = 'none';
-        document.getElementById('resultado').style.display = 'none';
+        const erroBox = document.getElementById('erro');
+        const resultadoBox = document.getElementById('resultado');
+        
+        erroBox.style.display = 'none';
+        resultadoBox.style.display = 'none';
 
-        const valorStr = document.getElementById('valor').value;
-        const entradaStr = document.getElementById('entrada').value;
+        const v = limparMascara(document.getElementById('valor').value);
+        const e = limparMascara(document.getElementById('entrada').value) || 0;
         const n = parseInt(document.getElementById('parcelas').value);
         const genero = document.getElementById('genero').value;
         const carencia = parseInt(document.getElementById('carencia').value);
 
-        const v = limparMascara(valorStr);
-        const e = limparMascara(entradaStr) || 0;
-
-        // Validações
+        // Validações Rígidas
         if (isNaN(v) || v <= 0 || v > 150000) {
-            document.getElementById('erro').textContent = '⚠️ Valor do veículo inválido (máx. R$ 150.000)';
-            document.getElementById('erro').style.display = 'block';
+            mostrarErro('⚠️ O valor do veículo deve ser entre R$ 1,00 e R$ 150.000,00.');
             return;
         }
-
-        if (isNaN(e) || e < 0 || e > v) {
-            document.getElementById('erro').textContent = '⚠️ Entrada não pode ser maior que o valor do veículo.';
-            document.getElementById('erro').style.display = 'block';
+        if (isNaN(e) || e < 0 || e >= v) {
+            mostrarErro('⚠️ A entrada não pode ser maior ou igual ao valor do veículo.');
             return;
         }
-
         if (isNaN(n) || n < 12 || n > 72) {
-            document.getElementById('erro').textContent = '⚠️ Parcelas entre 12 e 72.';
-            document.getElementById('erro').style.display = 'block';
+            mostrarErro('⚠️ O número de parcelas deve ser entre 12 e 72 meses.');
             return;
         }
-
         if (isNaN(carencia) || carencia < 0 || carencia > 6) {
-            document.getElementById('erro').textContent = '⚠️ Carência entre 0 e 6 meses.';
-            document.getElementById('erro').style.display = 'block';
+            mostrarErro('⚠️ A carência máxima é de 6 meses.');
             return;
         }
 
+        // Definição da Taxa
         let taxaMensal = genero === 'homem' ? 0.0099 : 0.0091;
-        const taxaPercentual = (taxaMensal * 100).toFixed(2);
-        document.getElementById('taxaAplicada').innerText = taxaPercentual + '% a.m.';
+        document.getElementById('taxaAplicada').innerText = (taxaMensal * 100).toFixed(2).replace('.', ',') + '% a.m.';
 
-        const p = v - e;
-
+        // Cálculo Financeiro (Tabela Price com Carência)
+        const principal = v - e;
         let parcela;
+        
         if (taxaMensal === 0) {
-            parcela = p / n;
+            parcela = principal / n;
         } else {
-            const pCorrigido = p * Math.pow(1 + taxaMensal, carencia);
-            parcela = (pCorrigido * Math.pow(1 + taxaMensal, n) * taxaMensal) / (Math.pow(1 + taxaMensal, n) - 1);
+            // Capitaliza o saldo devedor durante o período de carência
+            const saldoCorrigido = principal * Math.pow(1 + taxaMensal, carencia);
+            // Calcula a parcela sobre o novo saldo
+            parcela = (saldoCorrigido * Math.pow(1 + taxaMensal, n) * taxaMensal) / (Math.pow(1 + taxaMensal, n) - 1);
         }
 
         const totalPago = parcela * n;
-        const totalJuros = totalPago - p;
+        const totalJuros = totalPago - principal;
 
-        const formatar = (valor) => 'R$ ' + valor.toFixed(2).replace('.', ',');
+        // Função de formatação nativa (Garante os pontos de milhar: 15.000,00)
+        const formatarReal = (valorNum) => {
+            return valorNum.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        };
 
-        document.getElementById('valorParcela').innerText = formatar(parcela);
-        document.getElementById('valorTotal').innerText = formatar(totalPago);
-        document.getElementById('valorFinanciado').innerText = formatar(p);
-        document.getElementById('totalJuros').innerText = formatar(totalJuros);
+        // Preenche o HTML
+        document.getElementById('valorParcela').innerText = formatarReal(parcela);
+        document.getElementById('valorTotal').innerText = formatarReal(totalPago);
+        document.getElementById('valorFinanciado').innerText = formatarReal(principal);
+        document.getElementById('totalJuros').innerText = formatarReal(totalJuros);
 
-        document.getElementById('resultado').style.display = 'block';
-        document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // Exibe o resultado com animação
+        resultadoBox.style.display = 'block';
     }
 
-    // Enter para calcular
+    function mostrarErro(mensagem) {
+        const erroBox = document.getElementById('erro');
+        erroBox.textContent = mensagem;
+        erroBox.style.display = 'block';
+    }
+
+    // Permitir submissão com Enter
     document.querySelectorAll('input, select').forEach(el => {
         el.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') calcular();
