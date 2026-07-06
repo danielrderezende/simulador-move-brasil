@@ -1,0 +1,21 @@
+[
+  { "nome": "Renault Kwid Zen 1.0", "precoBase": 82790 },
+  { "nome": "Fiat Mobi Like 1.0", "precoBase": 83490 },
+  { "nome": "Citroën C3 Live 1.0", "precoBase": 86590 },
+  { "nome": "Hyundai HB20 Sense 1.0", "precoBase": 88990 },
+  { "nome": "VW Polo Track 1.0", "precoBase": 96690 },
+  { "nome": "Chevrolet Onix 1.0", "precoBase": 101790 },
+  { "nome": "Fiat Pulse Drive 1.3", "precoBase": 103990 },
+  { "nome": "Citroën Basalt Feel 1.0 Turbo", "precoBase": 105950 },
+  { "nome": "VW Tera 1.0 Turbo", "precoBase": 107190 },
+  { "nome": "Chevrolet Onix Plus 1.0", "precoBase": 108990 },
+  { "nome": "Fiat Cronos 1.0", "precoBase": 108990 },
+  { "nome": "BYD Dolphin Mini (Elétrico)", "precoBase": 115800 },
+  { "nome": "Honda City Hatch LX", "precoBase": 117500 },
+  { "nome": "Chevrolet Tracker AT Turbo", "precoBase": 119900 },
+  { "nome": "VW T-Cross 1.0 Turbo", "precoBase": 119990 },
+  { "nome": "Fiat Fastback T200", "precoBase": 119990 },
+  { "nome": "Nissan Versa Sense", "precoBase": 119990 },
+  { "nome": "Peugeot 208 Allure Turbo", "precoBase": 126990 },
+  { "nome": "Chevrolet Montana MT Turbo", "precoBase": 141790 }
+]

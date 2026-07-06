@@ -1,4 +1,12 @@
 {
- git config --global user.email "danielrderezende@gmail.com"
- git config --global user.name "Daniel Rezende"
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Abrir index.html no navegador",
+            "type": "pwa-chrome",
+            "request": "launch",
+            "file": "${workspaceFolder}/index.html",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
 }
