@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,330 +19,46 @@
             --input-bg: #f8fafc;
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background: var(--bg-gradient);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 32px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 480px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--primary), var(--success), #f59e0b);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .logo h2 {
-            color: var(--text-main);
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .logo h2 span {
-            color: var(--primary);
-        }
-
-        .badge {
-            background: #dcfce7;
-            color: #15803d;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .info-banner {
-            background: #eff6ff;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .info-banner p {
-            font-size: 14px;
-            color: #1e3a8a;
-            line-height: 1.6;
-        }
-
-        .info-banner strong {
-            color: var(--primary-dark);
-            font-weight: 700;
-        }
-
-        .input-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-main);
-            font-size: 14px;
-        }
-
-        .label-info {
-            font-weight: 400;
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-wrapper .prefix {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 15px;
-            z-index: 1;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-main);
-            transition: all 0.2s ease;
-            background: var(--input-bg);
-            outline: none;
-            appearance: none;
-        }
-
-        select {
-            appearance: auto;
-            cursor: pointer;
-        }
-
-        .input-wrapper input {
-            padding-left: 40px;
-        }
-
-        input:focus, select:focus {
-            border-color: var(--primary);
-            background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-        }
-
-        input:disabled, select:disabled {
-            background: #f1f5f9;
-            color: var(--text-muted);
-            cursor: not-allowed;
-            border-color: var(--border-color);
-        }
-
-        .row {
-            display: flex;
-            gap: 16px;
-        }
-        
-        .row .input-group {
-            flex: 1;
-        }
-
-        .campo-fixo::after {
-            content: '🔒';
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-            opacity: 0.6;
-        }
-
-        .carro-destaque {
-            border-color: var(--success);
-            background: #f0fdf4;
-        }
-
-        .info-categoria {
-            font-size: 12.5px;
-            color: #1e40af;
-            background: #e0e7ff;
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-top: 10px;
-            display: none;
-            line-height: 1.5;
-            border-left: 3px solid var(--primary);
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        button {
-            width: 100%;
-            padding: 16px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .resultado {
-            margin-top: 24px;
-            padding: 24px;
-            background: #f8fafc;
-            border-radius: 16px;
-            display: none;
-            border: 1px solid #e2e8f0;
-            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .resultado .resumo {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .resultado .item {
-            background: white;
-            padding: 16px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            border: 1px solid #f1f5f9;
-        }
-
-        .resultado .item .rotulo {
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .resultado .item .valor {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .resultado .item .valor.destaque {
-            color: var(--primary);
-            font-size: 24px;
-        }
-
-        .resultado .detalhes {
-            padding-top: 16px;
-            border-top: 1px dashed #cbd5e1;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 12px;
-        }
-
-        .resultado .detalhes .det-item {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .resultado .detalhes .det-item .det-valor {
-            font-weight: 700;
-            color: var(--text-main);
-            display: block;
-            font-size: 14px;
-            margin-top: 4px;
-        }
-
-        .erro {
-            color: #dc2626;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 16px;
-            display: none;
-            background: #fef2f2;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 4px solid #dc2626;
-            animation: shake 0.4s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        @media (max-width: 480px) {
-            .card { padding: 24px 20px; }
-            .row { flex-direction: column; gap: 0; }
-            .resultado .resumo { grid-template-columns: 1fr; }
-            .resultado .detalhes { grid-template-columns: 1fr; gap: 16px;}
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-gradient); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .card { background: var(--card-bg); padding: 32px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); width: 100%; max-width: 480px; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, var(--primary), var(--success), #f59e0b); }
+        .logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 24px; }
+        .logo h2 { color: var(--text-main); font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+        .logo h2 span { color: var(--primary); }
+        .badge { background: #dcfce7; color: #15803d; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+        .input-group { margin-bottom: 18px; }
+        label { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-weight: 600; color: var(--text-main); font-size: 14px; }
+        .label-info { font-weight: 400; color: var(--text-muted); font-size: 12px; }
+        .input-wrapper { position: relative; }
+        .input-wrapper .prefix { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-weight: 600; font-size: 15px; z-index: 1; }
+        input, select { width: 100%; padding: 14px 16px; border: 2px solid var(--border-color); border-radius: 12px; font-size: 15px; font-weight: 500; color: var(--text-main); transition: all 0.2s ease; background: var(--input-bg); outline: none; appearance: none; }
+        select { appearance: auto; cursor: pointer; }
+        .input-wrapper input { padding-left: 40px; }
+        input:focus, select:focus { border-color: var(--primary); background: #ffffff; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        input:disabled, select:disabled { background: #f1f5f9; color: var(--text-muted); cursor: not-allowed; border-color: var(--border-color); }
+        .row { display: flex; gap: 16px; }
+        .row .input-group { flex: 1; }
+        .campo-fixo::after { content: '🔒'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.6; }
+        .carro-destaque { border-color: var(--success); background: #f0fdf4; }
+        .info-categoria { font-size: 12.5px; color: #1e40af; background: #e0e7ff; padding: 10px 14px; border-radius: 10px; margin-top: 10px; display: none; line-height: 1.5; border-left: 3px solid var(--primary); animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        button { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        button:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3); }
+        button:active { transform: translateY(0); }
+        .resultado { margin-top: 24px; padding: 24px; background: #f8fafc; border-radius: 16px; display: none; border: 1px solid #e2e8f0; animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .resultado .resumo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .resultado .item { background: white; padding: 16px; border-radius: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #f1f5f9; }
+        .resultado .item .rotulo { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .resultado .item .valor { font-size: 20px; font-weight: 800; color: var(--text-main); }
+        .resultado .item .valor.destaque { color: var(--primary); font-size: 24px; }
+        .resultado .detalhes { padding-top: 16px; border-top: 1px dashed #cbd5e1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .resultado .detalhes .det-item { text-align: center; font-size: 12px; color: var(--text-muted); font-weight: 500; }
+        .resultado .detalhes .det-item .det-valor { font-weight: 700; color: var(--text-main); display: block; font-size: 14px; margin-top: 4px; }
+        .erro { color: #dc2626; font-size: 13px; font-weight: 500; margin-bottom: 16px; display: none; background: #fef2f2; padding: 12px; border-radius: 8px; border-left: 4px solid #dc2626; animation: shake 0.4s ease-in-out; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        @media (max-width: 480px) { .card { padding: 24px 20px; } .row { flex-direction: column; gap: 0; } .resultado .resumo { grid-template-columns: 1fr; } .resultado .detalhes { grid-template-columns: 1fr; gap: 16px;} }
     </style>
 </head>
 <body>
@@ -350,25 +66,23 @@
 <div class="card">
     <div class="logo">
         <h2>🚗 <span>Move</span> Brasil</h2>
-        <span class="badge">Automático</span>
+        <span class="badge">Online</span>
     </div>
 
-    <!-- Seção de Categoria: App vs Táxi -->
     <div class="input-group">
         <label>Categoria do Comprador</label>
         <select id="tipoUso">
-            <option value="particular">👤 Pessoa Física / Particular (Padrão)</option>
+            <option value="particular">👤 Pessoa Física / Particular</option>
             <option value="app">📱 Motorista de App (Desconto de Venda Direta)</option>
             <option value="taxi">🚖 Taxista (Isenção de IPI/ICMS)</option>
         </select>
         <div id="infoCategoria" class="info-categoria"></div>
     </div>
 
-    <!-- Seleção de carros dinâmica -->
     <div class="input-group">
         <label>Veículos em Oferta</label>
         <select id="carroPredefinido" class="carro-destaque">
-            <!-- As opções serão geradas aqui pelo JavaScript -->
+            <option value="">A carregar veículos...</option>
         </select>
     </div>
 
@@ -390,7 +104,7 @@
 
     <div class="row">
         <div class="input-group">
-            <label>Gênero</label>
+            <label>Género</label>
             <select id="genero">
                 <option value="homem">👨 Homem (0,99%)</option>
                 <option value="mulher">👩 Mulher (0,91%)</option>
@@ -468,75 +182,81 @@
 </div>
 
 <script>
-    // ==================== DADOS DOS VEÍCULOS ====================
-    // Preços base de fábrica (Pessoa Física)
-    const baseCarros = [
-        { nome: "Renault Kwid Zen", precoBase: 63990 },
-        { nome: "Fiat Mobi Like", precoBase: 65990 },
-        { nome: "Peugeot 208 Style", precoBase: 75990 },
-        { nome: "VW Polo Track", precoBase: 79990 },
-        { nome: "Hyundai HB20 Sense", precoBase: 82990 },
-        { nome: "BYD Dolphin Mini (Elétrico)", precoBase: 99800 },
-        { nome: "Chevrolet Tracker Turbo", precoBase: 115990 },
-        { nome: "Jeep Renegade 1.3 Turbo", precoBase: 135990 }
+    let baseCarros = [];
+    const carrosOffline = [
+        { nome: "BYD Dolphin Mini (Elétrico)", precoBase: 115800 },
+        { nome: "Ford Ka (Seminovo)", precoBase: 55000 },
+        { nome: "Renault Kwid Life", precoBase: 65000 },
+        { nome: "Chevrolet Onix Used", precoBase: 72000 }
     ];
 
-    // ==================== MÁSCARAS DE VALORES ====================
+    // Busca os dados da internet
+    async function carregarCarrosDaInternet() {
+        const select = document.getElementById('carroPredefinido');
+        select.innerHTML = '<option value="">A carregar veículos da internet...</option>';
+
+        const url = 'https://api.jsonbin.io/v3/b/668ec008acd3cb34a864d42b?meta=false';
+        let dadosRemotos = null;
+
+        try {
+            const response = await fetch(url, { cache: 'no-store' });
+            if (!response.ok) throw new Error(`Falha ao carregar dados: ${response.status}`);
+
+            const json = await response.json();
+            if (Array.isArray(json)) {
+                dadosRemotos = json;
+            } else if (Array.isArray(json.record)) {
+                dadosRemotos = json.record;
+            } else if (Array.isArray(json.value)) {
+                dadosRemotos = json.value;
+            } else {
+                throw new Error('Formato de dados inesperado');
+            }
+
+            baseCarros = dadosRemotos;
+            renderizarListaCarros();
+        } catch (erro) {
+            console.warn('Erro ao carregar os carros, usando fallback local:', erro);
+            baseCarros = carrosOffline;
+            renderizarListaCarros();
+        }
+    }
+
     function formatarMoeda(valor) {
         let numeros = valor.toString().replace(/\D/g, '');
         if (numeros === '') return '';
         let valorNumerico = parseFloat(numeros) / 100;
-        return valorNumerico.toLocaleString('pt-BR', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
+        return valorNumerico.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    function aplicarMascaraMoeda(input) {
-        const valorFormatado = formatarMoeda(input.value);
-        input.value = valorFormatado;
-    }
-
+    function aplicarMascaraMoeda(input) { input.value = formatarMoeda(input.value); }
     function limparMascara(valor) {
         if (!valor) return 0;
         return parseFloat(valor.toString().replace(/\./g, '').replace(',', '.'));
     }
 
-    // ==================== ATUALIZAÇÃO DINÂMICA DA LISTA ====================
     function renderizarListaCarros() {
         const select = document.getElementById('carroPredefinido');
         const tipo = document.getElementById('tipoUso').value;
-        const indexSelecionado = select.value; // Salva o carro que estava selecionado
+        const indexSelecionado = select.value; 
         
-        // Limpa a lista
         select.innerHTML = '<option value="">Selecione um carro ou digite o valor abaixo...</option>';
 
-        // Recria as opções com os valores já calculados
         baseCarros.forEach((carro, index) => {
             let precoFinal = carro.precoBase;
-            
-            if (tipo === 'app') {
-                precoFinal = precoFinal * 0.90; // -10% de desconto
-            } else if (tipo === 'taxi') {
-                precoFinal = precoFinal * 0.75; // -25% de desconto
-            }
+            if (tipo === 'app') precoFinal = precoFinal * 0.90; 
+            else if (tipo === 'taxi') precoFinal = precoFinal * 0.75; 
 
             const precoFormatado = precoFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            
             const option = document.createElement('option');
-            option.value = index; // Guarda o índice do array
+            option.value = index; 
             option.textContent = `${carro.nome} - ${precoFormatado}`;
             select.appendChild(option);
         });
 
-        // Devolve a seleção anterior se houver
-        if (indexSelecionado !== "") {
-            select.value = indexSelecionado;
-            atualizarPrecoInput();
-        }
+        if (indexSelecionado !== "") { select.value = indexSelecionado; atualizarPrecoInput(); }
     }
 
-    // Passa o valor do carro selecionado para a caixinha de input
     function atualizarPrecoInput() {
         const select = document.getElementById('carroPredefinido');
         const inputValor = document.getElementById('valor');
@@ -549,75 +269,54 @@
             if (tipo === 'app') precoFinal = precoFinal * 0.90;
             if (tipo === 'taxi') precoFinal = precoFinal * 0.75;
 
-            // Multiplica por 100 pois o formatarMoeda divide por 100
             inputValor.value = formatarMoeda(Math.round(precoFinal * 100).toString());
             validarCamposOnTheFly();
         }
     }
 
-    // ==================== EVENTOS E LÓGICA DE CATEGORIAS ====================
-    // Roda quando a página carrega pela primeira vez
-    window.onload = function() {
-        renderizarListaCarros();
-    };
+    window.onload = function() { carregarCarrosDaInternet(); };
 
     document.getElementById('tipoUso').addEventListener('change', function() {
         const infoBox = document.getElementById('infoCategoria');
         const tipo = this.value;
 
         if (tipo === 'app') {
-            infoBox.innerHTML = '<strong>Carro de App:</strong> Descontos de Venda Direta/Frotista direto da fábrica. (Aproximadamente <strong>10% OFF</strong>).';
+            infoBox.innerHTML = '<strong>Carro de App:</strong> Descontos de Venda Direta/Frotista direto da fábrica. (Aprox. <strong>10% OFF</strong>).';
             infoBox.style.display = 'block';
         } else if (tipo === 'taxi') {
-            infoBox.innerHTML = '<strong>Táxi:</strong> Possui direito legal de isenção de IPI e ICMS. (Aproximadamente <strong>25% OFF</strong>).';
+            infoBox.innerHTML = '<strong>Táxi:</strong> Possui direito legal de isenção de IPI e ICMS. (Aprox. <strong>25% OFF</strong>).';
             infoBox.style.display = 'block';
-        } else {
-            infoBox.style.display = 'none';
-        }
-
-        // Atualiza os textos da lista e o valor no input
+        } else { infoBox.style.display = 'none'; }
         renderizarListaCarros();
     });
 
-    document.getElementById('carroPredefinido').addEventListener('change', function() {
-        atualizarPrecoInput();
-    });
+    document.getElementById('carroPredefinido').addEventListener('change', atualizarPrecoInput);
 
     document.getElementById('valor').addEventListener('input', function() {
         aplicarMascaraMoeda(this);
-        document.getElementById('carroPredefinido').value = ""; // Desmarca a lista
+        document.getElementById('carroPredefinido').value = ""; 
         validarCamposOnTheFly();
     });
 
     document.getElementById('entrada').addEventListener('input', function() {
-        aplicarMascaraMoeda(this);
-        validarCamposOnTheFly();
+        aplicarMascaraMoeda(this); validarCamposOnTheFly();
     });
 
     document.getElementById('genero').addEventListener('change', function() {
-        const taxa = this.value === 'homem' ? '0,99' : '0,91';
-        document.getElementById('taxaExibida').value = taxa + ' a.m.';
+        document.getElementById('taxaExibida').value = (this.value === 'homem' ? '0,99' : '0,91') + ' a.m.';
         if (camposPreenchidos()) calcular();
     });
 
     ['parcelas', 'carencia'].forEach(id => {
-        document.getElementById(id).addEventListener('input', () => {
-            if (camposPreenchidos()) calcular();
-        });
+        document.getElementById(id).addEventListener('input', () => { if (camposPreenchidos()) calcular(); });
     });
 
-    // ==================== VALIDAÇÕES RÁPIDAS ====================
     function validarCamposOnTheFly() {
         const valorStr = document.getElementById('valor').value;
         if (valorStr) {
             const valor = limparMascara(valorStr);
             const inputValor = document.getElementById('valor');
-            
-            if (!isNaN(valor) && valor > 150000) {
-                inputValor.style.borderColor = '#dc2626';
-            } else {
-                inputValor.style.borderColor = ''; // Volta ao padrão
-            }
+            inputValor.style.borderColor = (!isNaN(valor) && valor > 150000) ? '#dc2626' : '';
         }
         if (camposPreenchidos()) calcular();
     }
@@ -628,7 +327,6 @@
         return valor && parcelas && limparMascara(valor) > 0 && parseInt(parcelas) >= 12;
     }
 
-    // ==================== CÁLCULO PRINCIPAL ====================
     function calcular() {
         const erroBox = document.getElementById('erro');
         const resultadoBox = document.getElementById('resultado');
@@ -639,57 +337,30 @@
         const v = limparMascara(document.getElementById('valor').value);
         const e = limparMascara(document.getElementById('entrada').value) || 0;
         const n = parseInt(document.getElementById('parcelas').value);
-        const genero = document.getElementById('genero').value;
         const carencia = parseInt(document.getElementById('carencia').value);
 
-        // Validações Rígidas
-        if (isNaN(v) || v <= 0 || v > 150000) {
-            mostrarErro('⚠️ O valor do veículo deve ser entre R$ 1,00 e R$ 150.000,00.');
-            return;
-        }
-        if (isNaN(e) || e < 0 || e >= v) {
-            mostrarErro('⚠️ A entrada não pode ser maior ou igual ao valor do veículo.');
-            return;
-        }
-        if (isNaN(n) || n < 12 || n > 72) {
-            mostrarErro('⚠️ O número de parcelas deve ser entre 12 e 72 meses.');
-            return;
-        }
-        if (isNaN(carencia) || carencia < 0 || carencia > 6) {
-            mostrarErro('⚠️ A carência máxima é de 6 meses.');
-            return;
-        }
+        if (isNaN(v) || v <= 0 || v > 150000) return mostrarErro('⚠️ O valor do veículo deve ser entre R$ 1,00 e R$ 150.000,00.');
+        if (isNaN(e) || e < 0 || e >= v) return mostrarErro('⚠️ A entrada não pode ser maior ou igual ao valor do veículo.');
+        if (isNaN(n) || n < 12 || n > 72) return mostrarErro('⚠️ O número de parcelas deve ser entre 12 e 72 meses.');
+        if (isNaN(carencia) || carencia < 0 || carencia > 6) return mostrarErro('⚠️ A carência máxima é de 6 meses.');
 
-        // Definição da Taxa
-        let taxaMensal = genero === 'homem' ? 0.0099 : 0.0091;
+        let taxaMensal = document.getElementById('genero').value === 'homem' ? 0.0099 : 0.0091;
         document.getElementById('taxaAplicada').innerText = (taxaMensal * 100).toFixed(2).replace('.', ',') + '% a.m.';
 
-        // Cálculo Financeiro (Tabela Price com Carência)
         const principal = v - e;
-        let parcela;
-        
-        if (taxaMensal === 0) {
-            parcela = principal / n;
-        } else {
-            const saldoCorrigido = principal * Math.pow(1 + taxaMensal, carencia);
-            parcela = (saldoCorrigido * Math.pow(1 + taxaMensal, n) * taxaMensal) / (Math.pow(1 + taxaMensal, n) - 1);
-        }
+        let parcela = taxaMensal === 0 ? principal / n : 
+            ((principal * Math.pow(1 + taxaMensal, carencia)) * Math.pow(1 + taxaMensal, n) * taxaMensal) / (Math.pow(1 + taxaMensal, n) - 1);
 
         const totalPago = parcela * n;
         const totalJuros = totalPago - principal;
 
-        // Função de formatação nativa
-        const formatarReal = (valorNum) => {
-            return valorNum.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        };
+        const formatarReal = (valorNum) => valorNum.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-        // Preenche o HTML
         document.getElementById('valorParcela').innerText = formatarReal(parcela);
         document.getElementById('valorTotal').innerText = formatarReal(totalPago);
         document.getElementById('valorFinanciado').innerText = formatarReal(principal);
         document.getElementById('totalJuros').innerText = formatarReal(totalJuros);
 
-        // Exibe o resultado com animação
         resultadoBox.style.display = 'block';
     }
 
@@ -699,11 +370,8 @@
         erroBox.style.display = 'block';
     }
 
-    // Permitir submissão com Enter
     document.querySelectorAll('input, select').forEach(el => {
-        el.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') calcular();
-        });
+        el.addEventListener('keypress', function(e) { if (e.key === 'Enter') calcular(); });
     });
 </script>
 
