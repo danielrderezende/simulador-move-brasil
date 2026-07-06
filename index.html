@@ -210,9 +210,20 @@
         const select = document.getElementById('carroPredefinido');
         select.innerHTML = '<option value="">A carregar veículos...</option>';
 
+        const badge = document.querySelector('.badge');
         const urlRemoto = 'https://api.jsonbin.io/v3/b/668ec008acd3cb34a864d42b?meta=false';
         const urlLocal = 'carros.json';
         let dadosRemotos = null;
+
+        // Se o ficheiro está a ser aberto via file://, muitos navegadores bloqueiam fetch local/remote.
+        // Nesse caso, usa diretamente o fallback embutido para evitar erros no console.
+        if (location.protocol === 'file:') {
+            console.info('Executando a partir do sistema de ficheiros; usando dados offline embutidos.');
+            if (badge) { badge.textContent = 'Offline'; badge.style.background = '#fde68a'; badge.style.color = '#92400e'; }
+            baseCarros = carrosOffline;
+            renderizarListaCarros();
+            return;
+        }
 
         try {
             const response = await fetch(urlRemoto, { cache: 'no-store' });
@@ -228,6 +239,8 @@
             } else {
                 throw new Error('Formato remoto inesperado');
             }
+
+            if (badge) { badge.textContent = 'Online'; badge.style.background = '#dcfce7'; badge.style.color = '#15803d'; }
         } catch (erro) {
             console.warn('Falha no carregamento remoto, tentando arquivo local:', erro);
             try {
@@ -236,8 +249,10 @@
                 const json = await response.json();
                 if (!Array.isArray(json)) throw new Error('Formato local inesperado');
                 dadosRemotos = json;
+                if (badge) { badge.textContent = 'Local'; badge.style.background = '#e6f0ff'; badge.style.color = '#1e40af'; }
             } catch (erroLocal) {
                 console.warn('Falha ao carregar arquivo local, usando fallback embutido:', erroLocal);
+                if (badge) { badge.textContent = 'Offline'; badge.style.background = '#fde68a'; badge.style.color = '#92400e'; }
             }
         }
 
